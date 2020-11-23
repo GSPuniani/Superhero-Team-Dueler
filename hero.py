@@ -20,10 +20,7 @@ class Hero:
     def fight(self, opponent):
         ''' Current Hero will take turns fighting the opponent hero passed in.
         '''
-        # TODO: Fight each hero until a victor emerges.
-        # Phases to implement:
-        #1) randomly choose winner,
-        #Hint: Look into random library, more specifically the choice method
+        # Randomly choose winner by picking from a list of the hero and the opponent
         winner = random.choice([self, opponent])
         print(f"{winner.name} won!")
 
