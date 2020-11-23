@@ -26,6 +26,8 @@ class Hero:
         # when a hero is created, their current health is
         # always the same as their starting health (no damage taken yet!)
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
 
 
     def add_ability(self, ability):
@@ -63,6 +65,10 @@ class Hero:
         # We use the append method to add armor objects to our list.
         self.armors.append(armor)
 
+    def add_kill(self, num_kills):
+        ''' Update self.kills by num_kills amount'''
+        self.kills += num_kills
+
     def defend(self, damage_amt):
         '''Calculate the total block amount from all armor blocks.
             return: total_block:Int
@@ -84,6 +90,11 @@ class Hero:
         # TODO: Create a method that updates self.current_health to the current
         # minus the the amount returned from calling self.defend(damage).
         self.current_health -= self.defend(damage)
+
+    def add_death(self, num_deaths):
+        ''' Update deaths with num_deaths'''
+        # TODO: This method should add the number of deaths to self.deaths
+        self.deaths += num_deaths
 
     def is_alive(self):  
         '''Return True or False depending on whether the hero is alive or not.
@@ -118,12 +129,22 @@ class Hero:
                 opponent.take_damage(self.attack())
                 if opponent.is_alive() == False:
                     winner = self
+                    self.add_kill(1)
+                    opponent.add_death(1)
                     fight_loop = False
                 self.take_damage(opponent.attack())
                 if self.is_alive() == False:
                     winner = opponent
+                    opponent.add_kill(1)
+                    self.add_death(1)
                     fight_loop = False
             print(f"{winner.name} won!")
+            return winner
+        # TODO: Refactor this method to update the following:
+        # 1) the number of kills the hero (self) has when the opponent dies.
+        # 2) then number of kills the opponent has when the hero (self) dies
+        # 3) the number of deaths of the opponent if they die    in the fight
+        # 4) the number of deaths of the hero (self) if they die in the fight
 
 
 
