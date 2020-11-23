@@ -1,4 +1,3 @@
-# my_dogs.py
 from dog import Dog
 
 my_dog = Dog("Rex", "SuperDog")
