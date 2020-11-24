@@ -20,8 +20,8 @@ class Arena:
         '''
         # Lets a user create an ability by inputting name and max damage of ability
         name = input("What is the ability name?  ")
-        max_damage = input(
-            "What is the max damage of the ability?  ")
+        max_damage = int(input(
+            "What is the max damage of the ability?  "))
         return Ability(name, max_damage)
 
     def create_weapon(self):
@@ -32,8 +32,8 @@ class Arena:
         # Prompt the user for the necessary information to create a new weapon object.
         # return the new weapon object.
         name = input("What is the weapon name?  ")
-        max_damage = input(
-            "What is the max damage of the weapon?  ")
+        max_damage = int(input(
+            "What is the max damage of the weapon?  "))
         return Weapon(name, max_damage)
 
     def create_armor(self):
@@ -44,8 +44,8 @@ class Arena:
         #  Prompt the user for the necessary information to create a new armor object.
         #  return the new armor object with values set by user.
         name = input("What is the armor name?  ")
-        max_block = input(
-            "What is the max damage that the armor can block?  ")
+        max_block = int(input(
+            "What is the max damage that the armor can block?  "))
         return Armor(name, max_block)
 
     def create_hero(self):
@@ -113,7 +113,7 @@ class Arena:
         # Prevent division by zero by replacing 0 in denominator with 1
         if team_deaths == 0:
             team_deaths = 1
-        print(team.name + " average K/D: " + str(team_kills / team_deaths))
+        return(team.name + " average K/D: " + str(team_kills / team_deaths))
 
     def survivors_and_winning_team(self):
         '''List surviving heroes on each team and declare the winning team'''
@@ -133,11 +133,11 @@ class Arena:
         # Based off of the count of alive heroes, the winning team
         # is declared by whichever team has more alive heroes
         if team_one_survivors > team_two_survivors:
-            print(f"{self.team_one} won!")
+            return(f"{self.team_one} won!")
         elif team_two_survivors > team_one_survivors:
-            print(f"{self.team_two} won!")
+            return(f"{self.team_two} won!")
         else:
-            print("It's a tie!")
+            return("It's a tie!")
     
     def show_stats(self):
         '''Prints team statistics to terminal.'''
@@ -156,21 +156,47 @@ class Arena:
         print("\n")
 
         # Calculate the average K/D ratio for Team One and Team Two
-        self.average_kd(self.team_one)
-        self.average_kd(self.team_two)
+        print(self.average_kd(self.team_one))
+        print(self.average_kd(self.team_two))
 
         # Print the survivors on each team and declare the winning team
-        self.survivors_and_winning_team()
+        print(self.survivors_and_winning_team())
 
 
+# Game Loop
+
+if __name__ == "__main__":
+    game_is_running = True
+
+    # Instantiate Game Arena
+    arena = Arena("Team One", "Team Two")
+
+    #Build Teams
+    arena.build_team_one()
+    arena.build_team_two()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        #Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            #Revive heroes to play again
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()
 
 # ----------------------------------------------------------------------------
 # TESTS
 # ----------------------------------------------------------------------------
 
-if __name__ == "__main__":
-    arena = Arena("Team Alpha", "Team One")
-    arena.build_team_one()
-    arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+# if __name__ == "__main__":
+#     arena = Arena("Team Alpha", "Team One")
+#     arena.build_team_one()
+#     arena.build_team_two()
+#     arena.team_battle()
+#     arena.show_stats()

@@ -47,7 +47,7 @@ class Hero:
         # Loop through all of our hero's abilities
         for ability in self.abilities:
             # Add the damage of each attack to our running total
-            total_damage += ability.attack()
+            total_damage += int(ability.attack())
         # Return the total damage
         return total_damage
 
