@@ -63,9 +63,9 @@ class Hero:
         # Add the number of kills to self.kills
         self.kills += num_kills
 
-    def defend(self, damage_amt):
-        '''Calculate the incoming damage minus the total block amount from all armor blocks.
-            return: damage_amt - total_block:Int
+    def defend(self):
+        '''Calculate the total block amount from all armor blocks.
+            return: total_block:Int
         '''
         # Start our block total out at 0
         total_block = 0
@@ -74,15 +74,16 @@ class Hero:
             for armor in self.armors:
                 # Add the block damage of each armor to our running total
                 total_block += armor.block()
-        # Return the block total subtracted from incoming damage
-        return damage_amt - total_block
+        # Return the block total 
+        return total_block
 
     def take_damage(self, damage):
         '''Updates self.current_health to reflect the damage minus the defense.
         '''
         # Updates self.current_health to the current
-        # minus the the amount returned from calling self.defend(damage).
-        self.current_health -= self.defend(damage)
+        # minus the the net damage taken (incoming damage minus blocked damage from armor)
+        net_damage = damage - self.defend()
+        self.current_health -= net_damage
 
     def add_death(self, num_deaths):
         ''' Update deaths with num_deaths'''
@@ -191,26 +192,26 @@ class Hero:
 #     hero.take_damage(15000)
 #     print(hero.is_alive())
 
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block is executed.
-
-#     hero1 = Hero("Wonder Woman")
-#     hero2 = Hero("Dumbledore")
-#     ability1 = Ability("Super Speed", 300)
-#     ability2 = Ability("Super Eyes", 130)
-#     ability3 = Ability("Wizard Wand", 180)
-#     ability4 = Ability("Wizard Beard", 220)
-#     hero1.add_ability(ability1)
-#     hero1.add_ability(ability2)
-#     hero2.add_ability(ability3)
-#     hero2.add_ability(ability4)
-#     hero1.fight(hero2)
-
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-    hero = Hero("Wonder Woman")
-    weapon = Weapon("Lasso of Truth", 90)
-    hero.add_weapon(weapon)
-    print(hero.attack())
+
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 180)
+    ability4 = Ability("Wizard Beard", 220)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
+
+# if __name__ == "__main__":
+#     # If you run this file from the terminal
+#     # this block is executed.
+#     hero = Hero("Wonder Woman")
+#     weapon = Weapon("Lasso of Truth", 90)
+#     hero.add_weapon(weapon)
+#     print(hero.attack())
