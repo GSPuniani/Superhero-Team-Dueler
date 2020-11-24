@@ -195,7 +195,7 @@ if __name__ == "__main__":
 # ----------------------------------------------------------------------------
 
 # if __name__ == "__main__":
-#     arena = Arena("Team Alpha", "Team One")
+#     arena = Arena("Team One", "Team Two")
 #     arena.build_team_one()
 #     arena.build_team_two()
 #     arena.team_battle()
